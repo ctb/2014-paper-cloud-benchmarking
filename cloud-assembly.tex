@@ -15,7 +15,9 @@ rapidly, leading to an increased demand for computational infrastructure.
 Many researchers and institutions are finding it difficult to cope with
 this increased demand.  One possible solution is to rent compute power
 on demand from a commercial provider -- so called ``cloud computing.''
-Cloud computing has been proposed as an alternative to 
+Cloud computing has been proposed as an alternative to purchasing and 
+maintaining dedicated servers with technology that quickly becomes outdated. 
+
 
 Cloud computing offers many advantages both for individual researchers
 and for teaching workshops; cloud providers such as Amazon Web
@@ -48,6 +50,7 @@ the workflow can be achieved by choosing different providers or hardware.
 We also compare and contrast the cost of sequencing with the cost of the
 associated computation.
 
+
 \section*{Results}
 
 Our sequence analysis workflow has multiple steps, including primer
@@ -61,7 +64,10 @@ normalization and assembly are memory intensive, annotation is CPU
 intensive, and mapping is both CPU and disk intensive.  These are
 unavoidable given the underlying algorithms.
 
-(@LS, how can we best measure io wait?)
+(@LS, how can we best measure io wait?
+@CTB that is one advantage of vmstat; there is a column (wa) that gives you 
+the exact time spent waiting between calls, I will check sar to see what it
+offers for this)
 
 Transcriptome assembly relies on several memory intensive steps, with
 only sporadic intensive disk use and relatively low levels of CPU
@@ -80,7 +86,7 @@ The cost of computation for these data sets is approximately \$100 for
 each of the configurations (see table XX), with lower costs typically
 incurring higher overall compute time and delaying delivery of results.
 Regardless, the cost of computation for the data sets is dwarfed by
-the expense of gneerating the data: \$1000 of data needs about \$100
+the expense of generating the data: \$1000 of data needs about \$100
 of computing.
 
 Different configurations, rackspace vs.
@@ -109,9 +115,17 @@ of which will have its own performance characteristics.  This makes
 choosing the optimum computing platform a difficult multidimensional
 optimization problem.
 
-Discuss ``surfacing'' otherwise hidden costs from HPCs.
+By establishing the limiting factor for each step of our assembly protocol 
+we have discovered bounds for platform selection for that step. With the help
+of virtualization, it is easy to switch between configurations at each 
+juncture. Thus, we can reduce the complexity of the optimization problem by 
+focusing on the particular computation needs at each step. In addition, if it
+is found the data reaches a bottleneck a few steps in, we can reconfigure the
+setup and proceed with a minimal loss of time. This process can result in a 
+substantial reduction of cost, since we can make an educated guess what the 
+most fitting CPU, disk, and memory requirements will be then adjust to a larger
+machine if need be.
 
-Discuss booting up different configurations for different parts of the
-workflow.
+Discuss ``surfacing'' otherwise hidden costs from HPCs.
 
 \end{document}
