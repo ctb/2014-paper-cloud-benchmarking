@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+
+\begin{document}
+
+\title{The cost of cloud computing for {\em de novo} transcriptome assembly on cloud computers}
+\author{Leigh Sheneman and C. Titus Brown}
+\maketitle
+
+\section*{Abstract}
+
+\section*{Introduction}
+
+Within biology, the number and size of sequencing data sets is increasing
+rapidly, leading to an increased demand for computational infrastructure.
+Many researchers and institutions are finding it difficult to cope with
+this increased demand.  One possible solution is to rent compute power
+on demand from a commercial provider -- so called ``cloud computing.''
+Cloud computing has been proposed as an alternative to 
+
+Cloud computing offers many advantages both for individual researchers
+and for teaching workshops; cloud providers such as Amazon Web
+Services, Microsoft Azure, Google Compute Engine, and Rackspace Cloud
+can scale with hourly demand and provide a range of hardware and
+software configurations.  Moreover, cloud computing offers an
+opportunity for reproducibility in computational biology, because
+the exact execution environment behind a paper can be made available
+to readers.
+
+However, cloud computing resources can also be a poor fit for
+computational research.  Cloud computing relies on virtualization
+technology to provide a configurable execution environment to users;
+this yields poorer computational performance than execution on
+non-virtualized hardware.  Moreover, cloud computing providers do
+not typically have specialized hardware or computers with substantial
+amounts of random-access memory (RAM); for example, Google Compute
+Engine currently limits computers to 104 gigabytes (GB) of RAM.
+And finally, cloud computing costs can be unpredictable: because
+charges are based on usage, processing tasks that take longer cost more,
+and the length of a task cannot always be predicted in advance.
+
+Below we evaluate the computational requirements and overall cost of a
+data- and memory-intensive workflow for {\em de novo} reconstruction
+of transcriptomes from Illumina sequencing reads, running on a
+published {\em Nematostella} data set.  We show that different steps
+in the workflow have dramatically different computational requirements
+from one another, and that substantial differences in the time to run
+the workflow can be achieved by choosing different providers or hardware.
+We also compare and contrast the cost of sequencing with the cost of the
+associated computation.
+
+\section*{Results}
+
+Our sequence analysis workflow has multiple steps, including primer
+trimming, quality filtering, data preprocessing with digital
+normalization, primary data processing in the form of assembly,
+annotation against existing databases, and correlation of the assembly
+results with the original data via mapping.  Each of these steps has
+its own compututional requirements: primer trimming and quality
+filtering are primarily CPU- and disk-intensive, while digital
+normalization and assembly are memory intensive, annotation is CPU
+intensive, and mapping is both CPU and disk intensive.  These are
+unavoidable given the underlying algorithms.
+
+(@LS, how can we best measure io wait?)
+
+Transcriptome assembly relies on several memory intensive steps, with
+only sporadic intensive disk use and relatively low levels of CPU
+usage compared to a mapping workflow.  The memory requirements for the
+Trinity assembler are hard to predict a priori because they depend on
+biological features of the data -- here, the underlying information
+content of the transcriptome being sequenced, together with the errors
+remaining after digital normalization.  This is a common feature of De
+Bruijn graph assemblers, whose memory use scales with the sum of
+information content and erroneous sequence.  In practice this means
+that large transcriptomes or transcriptomes from multiple species may
+require substantially more memory to assemble than small,
+single-species transcriptomes.
+
+The cost of computation for these data sets is approximately \$100 for
+each of the configurations (see table XX), with lower costs typically
+incurring higher overall compute time and delaying delivery of results.
+Regardless, the cost of computation for the data sets is dwarfed by
+the expense of gneerating the data: \$1000 of data needs about \$100
+of computing.
+
+Different configurations, rackspace vs.
+
+@@caching
+
+@@ look at ppt for other lessons
+
+\section*{Discussion}
+
+It is difficult predict the performance of our full de novo
+transcriptome assembly workflow on a new computer hardware
+configuration, given the many different components, each with
+their own distinct computational requirements.  
+
+Optimizing workflows for multiple cloud providers is therefore
+inherently challenging.  In addition to different base configurations
+of disk and CPU performance and memory size, cloud providers may be
+running virtual machines on heterogeneous hardware, and sharing disk
+and network bandwidth with other applications.  Each cloud provider
+will also have a distinct set of costs associated with each of their
+hardware configurations (e.g. Amazon, network, EBS), with nonobvious
+implications for the workflow.  And each cloud provider typically
+makes available multiple configurations of CPU, disk, and memory, each
+of which will have its own performance characteristics.  This makes
+choosing the optimum computing platform a difficult multidimensional
+optimization problem.
+
+Discuss ``surfacing'' otherwise hidden costs from HPCs.
+
+Discuss booting up different configurations for different parts of the
+workflow.
+
+\end{document}
