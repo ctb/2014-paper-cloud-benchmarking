@@ -65,9 +65,10 @@ intensive, and mapping is both CPU and disk intensive.  These are
 unavoidable given the underlying algorithms.
 
 (@LS, how can we best measure io wait?
-@CTB that is one advantage of vmstat; there is a column (wa) that gives you 
-the exact time spent waiting between calls, I will check sar to see what it
-offers for this)
+@CTB vmstat -- time spent waiting between recursive calls; 
+sar -- 	\%wio from sar -u -> i/o bound time;  
+avwait to avserv form sar -d will show bottleneck;
+ (user + nice + system) cpu usage)
 
 Transcriptome assembly relies on several memory intensive steps, with
 only sporadic intensive disk use and relatively low levels of CPU
@@ -90,6 +91,9 @@ the expense of generating the data: \$1000 of data needs about \$100
 of computing.
 
 Different configurations, rackspace vs.
+
+(@CTB I am going to look at ppt; currentyl not sure where you were headed
+with line 93...)
 
 @@caching
 
@@ -127,5 +131,7 @@ most fitting CPU, disk, and memory requirements will be then adjust to a larger
 machine if need be.
 
 Discuss ``surfacing'' otherwise hidden costs from HPCs.
+
+(@CTB I assume you are referring to maintance, energy cost, etc?)
 
 \end{document}
