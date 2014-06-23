@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+documentclass[11pt]{article}
 
 \begin{document}
 
@@ -94,20 +94,23 @@ While each provider has a wealth of resources for virtual machines to draw
 from, they present them in preconfigured packages. One cannot simply switch to
 a larger hard drive, you must upgrade your entire set of components to 
 increase a single factor. For example, AWS has 22 of these ``tiers'' in the 
-current generation of hardware alone. Their prices range from $0.02 to $6.82
+current generation of hardware alone. Their prices range from \$0.02 to \$6.82
 per hour, thus proper resource estimation is vital for users with limited fund
 availability. 
+
+A minimal requirement is to be able to provide enough disk space for a data set
+to run through the protocol with out depeletion. Even the Nematostella data 
+we used needs 200GB to complete the pipeline, thus ruling out the exclusively
+using a m1.xlarge instance.
 
 Though each provider has similar available resources, the hardware
 implementation of the cluster is a factor in performance. When renting from
 Rackspace the resources used by your virtual machine are in the same rack. On
 the other hand AWS’s instances are connected over the network. Intuitively,
 when all the components are in close proximity you experience higher input
-rates than if the data has to travel through 20 feet of networking cable.
-
-@@caching
-
-@@ look at ppt for other lessons
+rates than if the data has to travel through 20 feet of networking cable. It 
+also stands to reason, if our alogirthms and data structures are ecapsulated 
+in the the CPU cache the performance will improve an order of magnitude.
 
 \section*{Discussion}
 
