@@ -2,7 +2,8 @@ documentclass[11pt]{article}
 
 \begin{document}
 
-\title{The cost of cloud computing for {\em de novo} transcriptome assembly on cloud computers}
+\title{The cost of cloud computing for {\em de novo} transcriptome 
+assembly on cloud computers}
 \author{Leigh Sheneman and C. Titus Brown}
 \maketitle
 
@@ -16,29 +17,29 @@ infrastructure. Many researchers and institutions are finding it
 difficult to cope with this increased demand.  One possible solution
 is to rent compute power on demand from a commercial provider -- so
 called ``cloud computing.'' Cloud computing has been proposed as an
-alternative to purchasing and  maintaining dedicated servers with
+alternative to purchasing and maintaining dedicated servers with
 technology that quickly becomes outdated.
 
-Cloud computing offers many advantages both for individual researchers
-and for teaching workshops; cloud providers such as Amazon Web
-Services, Microsoft Azure, Google Compute Engine, and Rackspace Cloud
-can scale with hourly demand and provide a range of hardware and
-software configurations.  Moreover, cloud computing offers an
-opportunity for reproducibility in computational biology, because the
-exact execution environment behind a paper can be made available to
-readers.
+Cloud computing offers many advantages both for researchers and for
+teaching workshops; cloud providers such as Amazon Web Services,
+Microsoft Azure, Google Compute Engine, and Rackspace Cloud can scale
+with hourly demand and provide a range of hardware and software
+configurations.  Moreover, cloud computing offers an opportunity for
+reproducibility in computational biology, because the exact execution
+environment behind a paper can be made available to readers.
 
 However, cloud computing resources can also be a poor fit for
 computational research.  Cloud computing relies on virtualization
 technology to provide a configurable execution environment to users;
 this yields poorer computational performance than execution on non-
-virtualized hardware.  Moreover, cloud computing providers do not
-typically have specialized hardware or computers with substantial
-amounts of random-access memory (RAM); for example, Google Compute
-Engine currently limits computers to 104 gigabytes (GB) of RAM. And
-finally, cloud computing costs can be unpredictable: because charges
-are based on usage, processing tasks that take longer cost more, and
-the length of a task cannot always be predicted in advance.
+virtualized hardware with the same specifications.  Moreover, cloud
+computing providers do not typically have specialized hardware or
+computers with substantial amounts of random-access memory (RAM); for
+example, Google Compute Engine currently limits computers to 104
+gigabytes (GB) of RAM. And finally, cloud computing costs can be
+unpredictable: because charges are based on usage, processing tasks
+that take longer cost more, and the length of a task cannot always be
+predicted in advance.
 
 Below we evaluate the computational requirements and overall cost of a
 data- and memory-intensive work-flow for {\em de novo} reconstruction
@@ -88,26 +89,30 @@ results. Regardless, the cost of computation for the data sets is
 dwarfed by the expense of generating the data: \$1000 of data needs
 about \$100 of computing.
 
-While each provider has a wealth of resources for virtual machines to
-draw  from, they present them in pre-configured packages. One cannot
-simply switch to a larger hard drive, you must upgrade your entire set
-of components to  increase a single factor. For example, AWS has 22 of
-these ``tiers'' in the  current generation of hardware alone. Their
-prices range from \$0.02 to \$6.82 per hour, thus proper resource
-estimation is vital for users with limited fund availability.
+Since the configurations are rented as a package, for example, one
+cannot simply switch to a larger hard drive, you must reconfigure your
+machine to the appropriate tier. AWS has 22 of these ``tiers'' in the
+current generation of hardware alone. Their prices range from \$0.02
+to \$6.82 per hour, thus proper resource estimation is vital for users
+with limited fund availability.
 
 A minimal requirement is to be able to provide enough disk space for a
 data set to run through the protocol with out depletion. Even the
-Nematostella data  we used needs 200GB to complete the pipeline, thus
-ruling out the exclusively using a m1.xlarge instance.
+Nematostella data we used needs 200GB to complete the pipeline, thus
+ruling out exclusively using an AWS m1.xlarge instance.
 
-Though each provider has similar available resources, the hardware
+
+@ctb the next paragraph hints at what you discuss belong. Trying to
+@gage if it is more suiting here or in the discussion. In fact I have
+@a feeling plugging in our data may change the structure.
+
+AWS, Rackspace and GCE all use similar hardware, the physical
 implementation of the cluster is a factor in performance. When renting
 from Rackspace the resources used by your virtual machine are in the
 same rack. On the other hand AWS’s instances are connected over the
 network. Intuitively, when all the components are in close proximity
 you experience higher input rates than if the data has to travel
-through 20 feet of networking cable. It  also stands to reason, if our
+through 20 feet of networking cable. It also stands to reason, if our
 algorithms and data structures are encapsulated  in the the CPU cache
 the performance will improve an order of magnitude.
 
@@ -115,7 +120,7 @@ the performance will improve an order of magnitude.
 
 It is difficult predict the performance of our full de novo
 transcriptome assembly work-flow on a new computer hardware
-configuration, given the many different components, each with their
+configuration, given the many different stages, each with their
 own distinct computational requirements.
 
 Optimizing work-flows for multiple cloud providers is therefore
@@ -134,8 +139,8 @@ optimization problem.
 By establishing the limiting factor for each step of our assembly
 protocol  we have discovered bounds for platform selection for that
 step. With the help of virtualization, it is easy to switch between
-configurations at each  juncture. Thus, we can reduce the complexity
-of the optimization problem by  focusing on the particular computation
+configurations at each juncture. Thus, we can reduce the complexity
+of the optimization problem by focusing on the particular computation
 needs at each step. In addition, if it is found the data reaches a
 bottleneck a few steps in, we can reconfigure the setup and proceed
 with a minimal loss of time. This process can result in a  substantial
